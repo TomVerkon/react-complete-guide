@@ -5,24 +5,12 @@ import Person from "./Person/Person";
 class App extends Component {
   state = {
     persons: [
-      { name: "Max", age: 28 },
-      { name: "Manu", age: 29 },
-      { name: "Stephanie", age: 26 },
+      { id: 20, name: "Max", age: 28 },
+      { id: 21, name: "Manu", age: 29 },
+      { id: 22, name: "Stephanie", age: 26 },
     ],
     otherState: "some other value",
     showPersons: false,
-  };
-
-  switchNameHandler = (newName) => {
-    // console.log('Was clicked!');
-    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
-    this.setState({
-      persons: [
-        { name: newName, age: 28 },
-        { name: "Manu", age: 29 },
-        { name: "Stephanie", age: 27 },
-      ],
-    });
   };
 
   changedNameHandler = (event) => {
@@ -34,12 +22,29 @@ class App extends Component {
         { name: event.target.value, age: 29 },
         { name: "Stephanie", age: 27 },
       ],
-      otherState: "other state value"
+      otherState: "other state value",
     });
   };
 
   togglePersonsHandler = () => {
-    this.setState({ showPersons: !this.state.showPersons });
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });
+  };
+
+  deletePersonHandler = (personIndex) => {
+    // The following 3 lines is not the way to handle this
+    // const persons = this.state.persons;
+    // persons.splice(personIndex, 1);
+    // this.setState({ persons: persons });
+    //
+    // This is the way to handle it. By updating state immutably
+    // copy the state.persons array to _persons
+    // The next two lines are equivalent, your preference as to which one to use
+    // the second line is the most current way to copy an array
+    // const _persons = this.state.persons.slice();
+    const _persons = [...this.state.persons];
+    _persons.splice(personIndex, 1);
+    this.setState({ persons: _persons });
   };
 
   render() {
@@ -51,38 +56,31 @@ class App extends Component {
     };
 
     let personDiv = null;
+    let changeNameButton = null;
 
     if (this.state.showPersons) {
       personDiv = (
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-          />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, "Gymnasium")}
-            changed={this.changedNameHandler}
-          >
-            My Hobbies: Racing
-          </Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age}
-          />
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                click={() => {
+                  this.deletePersonHandler(index);
+                }}
+                name={person.name}
+                age={person.age}
+                key={person.id}
+              />
+            );
+          })}
         </div>
       );
-    } else {
-      personDiv = null;
     }
 
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <button onClick={this.switchNameHandler.bind(this, 'Dilbert')}>Switch Name</button> 
-        {/* According to Max, the above is more efficient */}
         <button style={buttonStyle} onClick={this.togglePersonsHandler}>
           Toggle persons
         </button>
