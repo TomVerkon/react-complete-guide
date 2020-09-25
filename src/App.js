@@ -13,17 +13,18 @@ class App extends Component {
     showPersons: false,
   };
 
-  changedNameHandler = (event) => {
-    // console.log('Was clicked!');
-    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
-    this.setState({
-      persons: [
-        { name: "Max", age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: "Stephanie", age: 27 },
-      ],
-      otherState: "other state value",
+  changedNameHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex((person) => {
+      return person.id === id;
     });
+
+    const person = { ...this.state.persons[personIndex] };
+    // alternative
+    // const person = Object.assign({}, this.state.persons[personIndex]);
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+    this.setState({ persons: persons });
   };
 
   togglePersonsHandler = () => {
@@ -70,6 +71,7 @@ class App extends Component {
                 name={person.name}
                 age={person.age}
                 key={person.id}
+                changed={(event) => this.changedNameHandler(event, person.id)}
               />
             );
           })}
