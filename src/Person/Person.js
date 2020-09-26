@@ -1,8 +1,9 @@
 import React from "react";
+import Radium from 'radium';
 
 import "./Person.css";
 
-const person = (props) => {
+const Person = (props) => {
   return (
     <div className="person">
       <p onClick={props.click}>
@@ -14,4 +15,4 @@ const person = (props) => {
   );
 };
 
-export default person;
+export default Radium(Person);
