@@ -1,6 +1,6 @@
 import React, { useEffect, memo, Fragment } from "react";
 import classes from "./CockPit.module.css";
-import Auxillary from "../../hoc/Auxillary";
+//import Auxillary from "../../hoc/Auxillary";
 
 const CockPit = (props) => {
   // this runs everytime CockPit is rendered
@@ -8,9 +8,9 @@ const CockPit = (props) => {
   // of componentDidUpdate in a class component
   useEffect(() => {
     console.log("[CockPit] useEffect");
-    setTimeout(() => {
-      alert("[CockPit] useEffect()");
-    }, 1000);
+    // setTimeout(() => {
+    //   alert("[CockPit] useEffect()");
+    // }, 1000);
     return () => {
       console.log("[CockPit] cleanup work in useEffect 1");
     };
