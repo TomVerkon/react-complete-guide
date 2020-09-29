@@ -13,7 +13,7 @@ class App extends Component {
 
   state = {
     persons: [
-      { id: 20, name: "Max", age: '28' },
+      { id: 20, name: "Max", age: 28 },
       { id: 21, name: "Manu", age: 29 },
       { id: 22, name: "Stephanie", age: 26 },
     ],
@@ -39,6 +39,7 @@ class App extends Component {
   changedNameHandler = (event, id) => {
       // although this is called synchronously it is not guaranteed to execute immediately
     // so setState should be written as follows if a new state property depends on a prev state property
+    const name = event.target.value;
     this.setState((prevState, props) => {
       const personIndex = prevState.persons.findIndex((person) => {
         return person.id === id;
@@ -47,7 +48,7 @@ class App extends Component {
       const person = { ...prevState.persons[personIndex] };
       // alternative
       // const person = Object.assign({}, this.state.persons[personIndex]);
-      person.name = event.target.value;
+      person.name = name;
       const persons = [...prevState.persons];
       persons[personIndex] = person;
   
