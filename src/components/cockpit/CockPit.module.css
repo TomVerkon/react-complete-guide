@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .red {
   color: red;
 }
@@ -10,22 +6,22 @@
   font-weight: bold;
 }
 
-.Button {
+.CockPit button {
   background-color: green;
   color: white;
   font: inherit;
   border: 1px solid blue;
   padding: 8px;
 }
-.Button:hover {
+.CockPit button:hover {
   background-color: lightgreen;
   color: white;
 }
 
-.Button.Red {
+.CockPit button.Red {
   background-color: red;
 }
 
-.Button.Red:hover {
+.CockPit button.Red:hover {
   background-color: salmon;
 }
