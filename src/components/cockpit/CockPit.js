@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import React, { useEffect, memo, Fragment } from "react";
 import classes from "./CockPit.module.css";
 import Auxillary from "../../hoc/Auxillary";
 
@@ -36,7 +36,7 @@ const CockPit = (props) => {
     assignedClasses.push(classes.bold);
   }
   return (
-    <Auxillary>
+    <Fragment>
       <div className={classes.CockPit}>
         <h1>{props.appTitle}</h1>
         <p className={assignedClasses.join(" ")}>This is really working!</p>
@@ -47,7 +47,7 @@ const CockPit = (props) => {
       <div>
         <p>This is here just to demo Auxillary!</p>
       </div>
-    </Auxillary>
+    </Fragment>
   );
 };
 
