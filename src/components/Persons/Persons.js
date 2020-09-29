@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import ErrorBoundry from "../ErrorBoundry";
 import Person from "./Person/Person";
+import Auxillary from '../../hoc/Auxillary';
 
 class Persons extends PureComponent {
   constructor(props) {
@@ -35,7 +36,7 @@ class Persons extends PureComponent {
     console.log("[Persons] render", this.props);
     return this.props.persons.map((person, index) => {
       return (
-        <ErrorBoundry key={person.id}>
+        // <ErrorBoundry key={person.id}>
           <Person
             click={() => {
               this.props.clicked(index);
@@ -44,7 +45,7 @@ class Persons extends PureComponent {
             age={person.age}
             changed={(event) => this.props.changed(event, person.id)}
           />
-        </ErrorBoundry>
+        // </ErrorBoundry>
       );
     });
   }

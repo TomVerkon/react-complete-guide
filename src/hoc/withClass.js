@@ -5,7 +5,7 @@ import React from 'react';
 // alternative implementation as just a function
 const withClass = (WrappedClass, classNames) => {
   return props => (
-    <div className={classNames}><WrappedClass /></div>
+    <div className={classNames}><WrappedClass {...props}/></div>
   );
 }
 
