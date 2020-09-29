@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+
 import ErrorBoundry from "../ErrorBoundry";
 import Person from "./Person/Person";
 import Auxillary from '../../hoc/Auxillary';
@@ -38,6 +39,7 @@ class Persons extends PureComponent {
       return (
         // <ErrorBoundry key={person.id}>
           <Person
+          key={person.id}
             click={() => {
               this.props.clicked(index);
             }}
@@ -50,6 +52,7 @@ class Persons extends PureComponent {
     });
   }
 }
+
 
 // const Persons = (props) =>
 // props.persons.map((person, index) => {

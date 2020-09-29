@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import classes from "./App.module.css";
 import Persons from "../components/Persons/Persons";
 import CockPit from "../components/cockpit/CockPit";
-import withClass from '../hoc/withClass';
-import Auxillary from '../hoc/Auxillary';
+import withClass from "../hoc/withClass";
+import Auxillary from "../hoc/Auxillary";
 
 class App extends Component {
   constructor(props) {
@@ -13,13 +13,14 @@ class App extends Component {
 
   state = {
     persons: [
-      { id: 20, name: "Max", age: 28 },
+      { id: 20, name: "Max", age: '28' },
       { id: 21, name: "Manu", age: 29 },
       { id: 22, name: "Stephanie", age: 26 },
     ],
     otherState: "some other value",
     showPersons: false,
     showCockPit: true,
+    changeCounter: 0,
   };
 
   static getDerivedStateFromProps(state, props) {
@@ -36,17 +37,25 @@ class App extends Component {
   }
 
   changedNameHandler = (event, id) => {
-    const personIndex = this.state.persons.findIndex((person) => {
-      return person.id === id;
+      // although this is called synchronously it is not guaranteed to execute immediately
+    // so setState should be written as follows if a new state property depends on a prev state property
+    this.setState((prevState, props) => {
+      const personIndex = prevState.persons.findIndex((person) => {
+        return person.id === id;
+      });
+  
+      const person = { ...prevState.persons[personIndex] };
+      // alternative
+      // const person = Object.assign({}, this.state.persons[personIndex]);
+      person.name = event.target.value;
+      const persons = [...prevState.persons];
+      persons[personIndex] = person;
+  
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1,
+      };
     });
-
-    const person = { ...this.state.persons[personIndex] };
-    // alternative
-    // const person = Object.assign({}, this.state.persons[personIndex]);
-    person.name = event.target.value;
-    const persons = [...this.state.persons];
-    persons[personIndex] = person;
-    this.setState({ persons: persons });
   };
 
   togglePersonsHandler = () => {
@@ -77,7 +86,7 @@ class App extends Component {
     if (this.state.showPersons) {
       personDiv = (
         <Persons
-          persons={this.state.persons}
+           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.changedNameHandler}
         />
