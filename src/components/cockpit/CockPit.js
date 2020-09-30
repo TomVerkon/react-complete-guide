@@ -1,8 +1,11 @@
-import React, { useEffect, memo, Fragment } from "react";
+import React, { useEffect, memo, Fragment, useRef } from "react";
 import classes from "./CockPit.module.css";
 //import Auxillary from "../../hoc/Auxillary";
 
 const CockPit = (props) => {
+
+  const toggleBtnRef = useRef(null);
+
   // this runs everytime CockPit is rendered
   // use this in a functional component instead
   // of componentDidUpdate in a class component
@@ -11,6 +14,7 @@ const CockPit = (props) => {
     // setTimeout(() => {
     //   alert("[CockPit] useEffect()");
     // }, 1000);
+    toggleBtnRef.current.click();
     return () => {
       console.log("[CockPit] cleanup work in useEffect 1");
     };
@@ -40,7 +44,7 @@ const CockPit = (props) => {
       <div className={classes.CockPit}>
         <h1>{props.appTitle}</h1>
         <p className={assignedClasses.join(" ")}>This is really working!</p>
-        <button className={btnClasses} onClick={props.toggle}>
+        <button ref={toggleBtnRef} className={btnClasses} onClick={props.toggle}>
           Toggle persons
         </button>
       </div>
